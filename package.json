@@ -1,0 +1,37 @@
+{
+  "name": "mobix_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "scrape:ts": "tsc",
+    "scrape:js": "node build/apiScraping/script.js",
+    "scrape": "concurrently npm:scrape:*",
+    "start:ts": "tsc -w",
+    "start:js": "nodemon build/app.js",
+    "start": "tsc && concurrently npm:start:*",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:unit": "tsc && ENV_FILE=./config/.env.test jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "@types/request": "^2.48.7",
+    "@types/supertest": "^2.0.11",
+    "jest": "^27.3.1",
+    "supertest": "^6.1.6",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.13",
+    "@types/mongodb": "^4.0.7",
+    "concurrently": "^6.3.0",
+    "express": "^4.17.1",
+    "mongodb": "^4.1.4",
+    "nodemon": "^2.0.15",
+    "request": "^2.88.2"
+  }
+}
