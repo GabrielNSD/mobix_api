@@ -1,4 +1,8 @@
-import { connectDatabase, insertDocument } from "../helpers/db-util";
+import {
+  connectDatabase,
+  inserMultipleEntries,
+  insertDocument,
+} from "../helpers/db-util";
 import {
   returnAllPovCharInfo,
   getContent,
@@ -8,10 +12,6 @@ import {
 
 const populatePovCharacters = async () => {
   const listPovChar = await returnAllPovCharInfo();
-  //const listChar = await returnAllCharInfo();
-
-  //console.log(listChar);
-  //console.log(listPovChar);
 
   let client;
   try {
@@ -21,29 +21,15 @@ const populatePovCharacters = async () => {
     return;
   }
 
-  //console.log(listPovChar);
-
   //populate povCharacters in DataBase
   try {
-    for (const item of listPovChar) {
-      await insertDocument(client, "povCharacters", item);
-    }
+    await inserMultipleEntries(client, "povCharacters", listPovChar);
     client.close();
   } catch (err) {
     console.log("erro insert ", err);
     client.close();
   }
 
-  //populate characters in DataBase
-  /*  try {
-    for (const item of listChar) {
-      await insertDocument(client, "characters", item);
-    }
-    client.close();
-  } catch (err) {
-    console.log("erro insert ", err);
-    client.close();
-  } */
   console.log("[populatePovCharacters] - finished");
 };
 
@@ -61,9 +47,7 @@ const populateBooks = async () => {
   //populate book in DataBase
 
   try {
-    for (const book of listBooks) {
-      await insertDocument(client, "books", book);
-    }
+    await inserMultipleEntries(client, "books", listBooks);
     client.close();
   } catch (err) {
     console.log("erro insert books ", err);

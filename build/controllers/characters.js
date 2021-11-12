@@ -28,10 +28,10 @@ const handlePovCharactersGet = (req, res) => __awaiter(void 0, void 0, void 0, f
 });
 exports.handlePovCharactersGet = handlePovCharactersGet;
 const handleCharacterGet = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    //const { charIds } = req.params;
-    const charIds = req.query["id"];
-    if (!charIds) {
-        res.status(404).json({ error: "entrada inválida" });
+    const rawCharIds = String(req.query["id"]);
+    const charIds = rawCharIds.replace("[", "").replace("]", "").split(",");
+    if (!charIds || charIds.length === 0 || charIds[0] === "undefined") {
+        res.status(400).json({ error: "entrada invalida" });
         return;
     }
     const client = yield (0, db_util_1.connectDatabase)();
@@ -39,7 +39,6 @@ const handleCharacterGet = (req, res) => __awaiter(void 0, void 0, void 0, funct
     const resultArray = [];
     try {
         for (const id of charIds) {
-            console.log(id);
             const character = yield db
                 .collection("povCharacters")
                 .find({ id: Number(id) })

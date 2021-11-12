@@ -22,10 +22,10 @@ export const handlePovCharactersGet = async (
 };
 
 export const handleCharacterGet = async (req: any, res: Express.Response) => {
-  //const { charIds } = req.params;
-  const charIds = req.query["id"];
-  if (!charIds) {
-    res.status(404).json({ error: "entrada inválida" });
+  const rawCharIds = String(req.query["id"]);
+  const charIds = rawCharIds.replace("[", "").replace("]", "").split(",");
+  if (!charIds || charIds.length === 0 || charIds[0] === "undefined") {
+    res.status(400).json({ error: "entrada invalida" });
     return;
   }
   const client = await connectDatabase();
@@ -36,7 +36,6 @@ export const handleCharacterGet = async (req: any, res: Express.Response) => {
 
   try {
     for (const id of charIds) {
-      console.log(id);
       const character = await db
         .collection("povCharacters")
         .find({ id: Number(id) })

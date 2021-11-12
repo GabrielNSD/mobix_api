@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDocument = exports.insertDocument = exports.connectDatabase = void 0;
+exports.getDocument = exports.inserMultipleEntries = exports.insertDocument = exports.connectDatabase = void 0;
 const mongodb_1 = require("mongodb");
 const connectDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
-    const client = yield mongodb_1.MongoClient.connect("mongodb+srv://dbUser:dbUserPassword@cluster0.u6qrn.mongodb.net/mobix?retryWrites=true&w=majority");
+    const client = yield mongodb_1.MongoClient.connect(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.u6qrn.mongodb.net/mobix?retryWrites=true&w=majority`);
     return client;
 });
 exports.connectDatabase = connectDatabase;
@@ -22,6 +22,12 @@ const insertDocument = (client, collection, document) => __awaiter(void 0, void 
     return result;
 });
 exports.insertDocument = insertDocument;
+const inserMultipleEntries = (client, collection, document) => __awaiter(void 0, void 0, void 0, function* () {
+    const db = client.db();
+    const result = yield db.collection(collection).insertMany(document);
+    return result;
+});
+exports.inserMultipleEntries = inserMultipleEntries;
 const getDocument = (client) => __awaiter(void 0, void 0, void 0, function* () {
     const db = client.db;
 });

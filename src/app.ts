@@ -1,6 +1,6 @@
 import { createServer } from "./server";
 
-const PORT = 3005;
+const PORT = process.env.API_PORT ? process.env.API_PORT : 3005;
 
 createServer()
   .then((server) => {

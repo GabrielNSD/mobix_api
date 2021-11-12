@@ -12,9 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleBookCoverGet = void 0;
 const db_util_1 = require("../helpers/db-util");
 const handleBookCoverGet = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const booksId = req.query["id"];
-    if (!booksId) {
-        res.status(404).json({ error: "entrada inválida" });
+    //const booksId = req.query["id"];
+    const rawBooksId = String(req.query["id"]);
+    const booksId = rawBooksId.replace("[", "").replace("]", "").split(",");
+    if (!booksId || booksId[0] === "undefined" || booksId.length === 0) {
+        res.status(400).json({ error: "entrada invalida" });
         return;
     }
     const client = yield (0, db_util_1.connectDatabase)();
@@ -22,7 +24,6 @@ const handleBookCoverGet = (req, res) => __awaiter(void 0, void 0, void 0, funct
     const resultArray = [];
     try {
         for (const id of booksId) {
-            console.log(id);
             const book = yield db
                 .collection("books")
                 .find({ id: Number(id) })
@@ -30,10 +31,13 @@ const handleBookCoverGet = (req, res) => __awaiter(void 0, void 0, void 0, funct
                 .toArray();
             resultArray.push(book[0].cover);
         }
+        if (resultArray.length === 0) {
+            res.status(404).json({ error: "Capa nao encontrada" });
+        }
         res.status(200).json({ covers: resultArray });
     }
     catch (err) {
-        res.status(500).json({ message: "Erro ao capa do livro" });
+        res.status(404).json({ message: "Capa nao encontrada" });
     }
 });
 exports.handleBookCoverGet = handleBookCoverGet;

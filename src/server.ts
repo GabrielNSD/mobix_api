@@ -26,7 +26,7 @@ export async function createServer(): Promise<Express> {
 
   // Esta rota retorna as capas de 1 ou mais livros e possui a seguinte query:
   // /books/cover?id=1&id=2
-  // sendo possível consultar quantas capas forem necessárias
+  // sendo possível consultar quantas capas forem necessarias
   // o id dos livros foi mantido o mesmo que na API de onde os dados foram extraídos
   server.get("/books/cover", (req, res) => {
     books.handleBookCoverGet(req, res);

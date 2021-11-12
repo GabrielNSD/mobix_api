@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  mobix-api:
+    container_name: api
+    build: ./
+    command: npm start
+    working_dir: /usr/src/mobix_api
+    ports:
+      - "3005:3005"
+    volumes:
+      - ./:/usr/src/mobix_api
+    environment:
+      API_PORT: 3005
+    env_file:
+      - ./.env
