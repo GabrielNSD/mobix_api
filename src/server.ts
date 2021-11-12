@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import * as books from "./controllers/books";
 import * as character from "./controllers/characters";

@@ -13,6 +13,7 @@ Se preferir nao utilizar o docker, instale os pacotes com `npm install` e depois
 - Os dados utilizados nesta api foram coletados de [An API of Ice And Fire](https://anapioficeandfire.com/)
 - Foram considerados apenas os personagens pricipais dos cinco livros das Cronicas de Gelo e fogo.
 - Todas as capas dos 12 livros do universo das Cronicas foram coletadas.
+- O script esta localizado no diretorio /src/apiScraping.
 
 As credenciais para o MongoDB devem ser inseridas em um arquivo .env (ver exemplo em .env-example).
 Para fazer a coleta de dados, execute o comando:  
@@ -41,3 +42,7 @@ As rotas presentes na API sao as seguintes:
 
 > Retorna todos os livros relacionados a personagem indicada.  
 > Metodo: GET
+
+## Testes
+
+Uma simples rotina de testes foi implementada, pode ser executada atraves do comando `npm run tests`

@@ -10,13 +10,13 @@
     "start:ts": "tsc -w",
     "start:js": "nodemon build/app.js",
     "start": "tsc && concurrently npm:start:*",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "test:unit": "tsc && ENV_FILE=./config/.env.test jest"
+    "test": "tsc && ENV_FILE=./config/.env.test jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/dotenv": "^8.2.0",
     "@types/jest": "^27.0.2",
     "@types/request": "^2.48.7",
     "@types/supertest": "^2.0.11",
@@ -29,6 +29,7 @@
     "@types/express": "^4.17.13",
     "@types/mongodb": "^4.0.7",
     "concurrently": "^6.3.0",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mongodb": "^4.1.4",
     "nodemon": "^2.0.15",
